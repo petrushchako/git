@@ -1,4 +1,4 @@
-### git setup
+### GIT setup
 
 #### Installation
 [Homebrew installation guide](https://phoenixnap.com/kb/install-homebrew-on-mac)
@@ -7,11 +7,11 @@
 
 #### Initial configuration
 ```
-git -v
-git config user.name "Alex Petrushchak"
-git config user.name
-git config user.email "myEmail@gmail.com"
-git config user.email
+git -v						#Verify installation
+git config user.name "Alex Petrushchak" 	#Add name
+git config user.name				#View name
+git config user.email "myEmail@gmail.com"	#Add Email
+git config user.email				#Verify email
 ```
 
 #### SSH Authentication
