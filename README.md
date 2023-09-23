@@ -1,8 +1,8 @@
 ### git setup
 
 #### Installation
-[Download](https://git-scm.com/downloads)
-
+[Homebrew installation guide](https://phoenixnap.com/kb/install-homebrew-on-mac)
+[GIT installer download](https://git-scm.com/downloads)
 
 
 #### Initial configuration
