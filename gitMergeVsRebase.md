@@ -25,3 +25,5 @@ At the backend:
 * Finally, the backed up changes from **feature1** are applied back to **feature1** branch.
 * Note: After this operation is completed, you can run the **git log** command in **feature1** branch, so see, that the base branch now has a record of **m3** commit, rather than **m2** as it was previously. 
 
+##### Do not rebase commits that exist outside your repository and that people may have based work on.
+https://git-scm.com/book/en/v2/Git-Branching-Rebasing
