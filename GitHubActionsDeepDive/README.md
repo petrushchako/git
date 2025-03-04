@@ -30,3 +30,26 @@ Continuous integration, delivery, and deployment are quickly going from nice-to-
     - Reviewing the Workflow
 
 
+<br><br><br>
+
+## Introduction
+## Course Introduction/About the Author
+This course will provide a hands-on deep dive into GitHub Actions, focusing on practical workflow design and automation for modern applications.
+
+### Key Topics Covered
+- **Introduction to GitHub Actions**: Understanding what GitHub Actions are and how they fit into CI/CD pipelines.
+- **Managing GitHub Actions Runners**: Exploring both GitHub-hosted runners and self-hosted runners.
+- **Effective Workflow Design**: Best practices and principles for designing efficient and maintainable workflows.
+- **Hands-On Workflow Example**: Creating a workflow to deploy an AWS Lambda function, from code to deployment.
+- **Iterative Enhancements**: Adding checks, tests, and improvements to make the workflow robust and production-ready.
+
+### About the Instructor
+- **Instructor**: Wes Coffay (pronounced like "coffee")
+- **Background**: Cloud Engineer with a focus on public sector projects.
+- **Specialties**: 
+    - Pipeline design
+    - Automated cloud governance
+    - (And baking, though that’s less relevant here!)
+
+### Why GitHub Actions?
+GitHub Actions is a powerful automation tool that simplifies development workflows, improves deployment processes, and reduces pain points in application delivery. This course aims to equip you with the skills to make the most of GitHub Actions for your own projects.
