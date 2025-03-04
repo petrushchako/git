@@ -49,7 +49,49 @@ This course will provide a hands-on deep dive into GitHub Actions, focusing on p
 - **Specialties**: 
     - Pipeline design
     - Automated cloud governance
-    - (And baking, though that’s less relevant here!)
 
 ### Why GitHub Actions?
 GitHub Actions is a powerful automation tool that simplifies development workflows, improves deployment processes, and reduces pain points in application delivery. This course aims to equip you with the skills to make the most of GitHub Actions for your own projects.
+
+
+
+<br><br><br>
+
+
+
+## Pricing and Free Tier in GitHub Actions
+
+### No Sandbox, But a Free Tier
+Unlike AWS, GCP, or Azure, **GitHub Actions does not offer a dedicated sandbox environment**. However, GitHub provides a **free tier** (though they don’t officially call it that), which includes:
+- **Free storage allowance**
+- **Monthly workflow minutes allowance**
+
+### Monthly Free Minutes
+For **GitHub Free accounts**, you get:
+- **2000 minutes per month** for running workflows.
+- These minutes apply to **GitHub-hosted runners**.
+
+### Different Runner Costs
+Not all runner minutes count equally:
+- **Linux Runners**: 1 minute = 1 minute from your allowance.
+- **Windows Runners**: 1 minute = 2 minutes from your allowance.
+- **Mac Runners**: 1 minute = 10 minutes from your allowance.
+
+### Practical Note
+- During course development, the instructor **never exceeded the 2000 free minutes**.
+- Even if you re-run every workflow multiple times, it’s **very unlikely** you’ll hit the limit.
+
+### No Credit Card Required
+- **GitHub Free accounts do not require a credit card** to sign up.
+- When you hit the free minute limit, **jobs simply stop running until the next month**.
+- This removes the risk of unexpected bills, providing **peace of mind** compared to traditional cloud services.
+
+### Key Takeaway
+You can safely complete this course using a **GitHub Free account**, without worrying about surprise charges.
+
+
+
+<br><br><br>
+
+
+
