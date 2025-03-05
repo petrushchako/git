@@ -95,3 +95,48 @@ You can safely complete this course using a **GitHub Free account**, without wor
 
 
 
+## Chapter 2<br>What Is GitHub Actions?
+
+<br>
+
+## Understanding Workflows, Jobs, and Actions
+### What is GitHub Actions?
+- **GitHub Actions** is a **Continuous Integration (CI)** solution.
+- It **executes workflows triggered by events** (like pushes) to automate tasks such as building, testing, and deploying.
+- It is a **managed service**, so GitHub handles the infrastructure (unless you use self-hosted runners).
+- **Community Actions** are reusable solutions published by GitHub and third parties for common tasks (like checking out code, uploading artifacts, etc.).
+
+### Key Terms
+#### Workflow
+- **A collection of jobs triggered by an event**.
+- Conceptually, a **CI pipeline**.
+- Defined in **YAML files**.
+
+#### Runners
+- **Compute machines where jobs execute**.
+- Can be:
+    - **GitHub-hosted** (managed by GitHub)
+    - **Self-hosted** (fully managed by you)
+
+#### Jobs
+- **A set of steps that run on a single runner**.
+- Workflows can have **one or more jobs**.
+- Example: a workflow could contain **build**, **test**, and **deploy** jobs.
+
+#### Steps
+- **The smallest unit of execution in a job**.
+- Steps can:
+    - Execute a **command**.
+    - Run a **script**.
+    - Use a **JavaScript file**.
+    - Use a **Docker container**.
+    - Leverage a **community action**.
+
+#### Example Workflow Structure
+- Workflows start with a **name**.
+- `on`: Specifies **triggers** (e.g., push to repository).
+- Jobs have:
+    - **Names**.
+    - **Runners** (OS selection like `ubuntu-latest`).
+    - **Steps** (each with optional names and actions/commands).
+- Jobs can have **dependencies** using the `needs` key (e.g., a test job depends on the build job).
