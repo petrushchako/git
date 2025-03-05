@@ -201,3 +201,22 @@ You can safely complete this course using a **GitHub Free account**, without wor
     - **Description**.
     - **Latest release info**.
     - **Sample usage examples**.
+
+### Examples of Community Actions
+#### 1. Checkout Action (by actions)
+- **Open source** with multiple contributors.
+- **Primary purpose**: Check out repository code into the runner.
+- **Core action for most workflows**.
+
+#### 2. Packer GitHub Action (by HashiCorp)
+- **Simplifies Packer setup and execution in GitHub Actions**.
+- Without this action, you would:
+    - Download Packer.
+    - Configure it on the runner.
+    - Run the Packer commands.
+- With this action, all setup is handled — you focus only on **managing your Packer code**.
+
+#### 3. Jira Issue Action (by Atlassian)
+- **Created by Atlassian** (adds credibility).
+- **Simplifies creating Jira issues from GitHub Actions workflows**.
+- Example of **integrating external services into your workflows**.
