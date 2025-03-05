@@ -156,3 +156,20 @@ You can safely complete this course using a **GitHub Free account**, without wor
         - `main` branch maps to **production**.
         - `dev` branch maps to **development**.
         - `release` branch maps to **testing**.
+
+#### Typical Gitflow Lifecycle
+1. **Fork main to create a development branch**.
+2. Developers create **feature branches** from development.
+3. Changes are committed and a **pull request** is made into the development branch.
+4. After review and approval, the code moves to the **development environment**.
+5. Once tested, code merges back to **main** for production.
+6. New release branches fork from main for future versions.
+
+### Summary
+In this lesson, we:
+- Defined **GitHub Actions**.
+- Reviewed key concepts: **workflows, runners, jobs, steps**.
+- Explored **common CI/CD terms**, including **environments** and **Gitflow**.
+
+Next, we’ll dive deeper into **community actions** — when to use them and what to consider.
+
