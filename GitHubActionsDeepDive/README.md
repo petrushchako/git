@@ -165,11 +165,39 @@ You can safely complete this course using a **GitHub Free account**, without wor
 5. Once tested, code merges back to **main** for production.
 6. New release branches fork from main for future versions.
 
-### Summary
-In this lesson, we:
-- Defined **GitHub Actions**.
-- Reviewed key concepts: **workflows, runners, jobs, steps**.
-- Explored **common CI/CD terms**, including **environments** and **Gitflow**.
 
-Next, we’ll dive deeper into **community actions** — when to use them and what to consider.
 
+<br><br><br>
+
+
+
+## Introducing Community Actions
+### What are Community Actions?
+- **Prepackaged steps for GitHub Actions**.
+- Provide **reusable templates** for common tasks.
+- Created by:
+    - **GitHub**.
+    - **Third-party vendors**.
+    - **Community members**.
+- Often simplify **interactions with third-party tools or services**.
+- **Open source** - free to use, fork, and customize.
+
+### Finding Community Actions
+- **GitHub Marketplace**:
+    - Filter by **publisher, category, and keywords**.
+    - Focus only on **actions** (not apps).
+    - As of recording, **over 9,200 actions** available.
+    - Filter for **Verified Creators** for additional confidence.
+- **Google Search**:
+    - Search “GitHub Actions” + **your use case** for strong results.
+    - Can be a faster way to discover lesser-known actions.
+
+### Exploring the GitHub Marketplace
+- Marketplace contains **actions for various categories**, including:
+    - **CI/CD**.
+    - **Cloud platforms**.
+    - **Container management (Docker)**.
+- Each action’s page includes:
+    - **Description**.
+    - **Latest release info**.
+    - **Sample usage examples**.
