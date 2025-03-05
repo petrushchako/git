@@ -140,3 +140,19 @@ You can safely complete this course using a **GitHub Free account**, without wor
     - **Runners** (OS selection like `ubuntu-latest`).
     - **Steps** (each with optional names and actions/commands).
 - Jobs can have **dependencies** using the `needs` key (e.g., a test job depends on the build job).
+
+### Common CI/CD Terms
+#### Continuous Integration (CI)
+- In this course, **CI refers to any post-commit pipeline** that automatically executes after a code change.
+
+#### Environment
+- **A dedicated infrastructure stage** (e.g., dev, test, production).
+- Each environment should **mirror the others as closely as possible**.
+
+#### Gitflow
+- **A development workflow** where:
+    - Branches map to specific **environments**.
+    - Example: 
+        - `main` branch maps to **production**.
+        - `dev` branch maps to **development**.
+        - `release` branch maps to **testing**.
