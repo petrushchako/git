@@ -246,3 +246,31 @@ You can safely complete this course using a **GitHub Free account**, without wor
     - **Custom runner = AWS EC2 instance** (you manage the infrastructure).
     - **GitHub-managed runner = AWS Lambda function** (managed for you).
 
+
+### Why Use a Custom Runner?
+#### 1. **GitHub Enterprise (Self-Hosted GitHub)**
+- In **GitHub Enterprise**, companies host their **own GitHub instance**.
+- Code resides in **private infrastructure**, not github.com.
+- Requires **custom runners** since private GitHub instances **cannot use GitHub-managed runners**.
+
+#### 2. **Security Needs**
+- Control **what compute instances have access** to sensitive secrets.
+- If deploying to **production**, you may want **only your trusted compute instances** to handle deployments.
+- Need **greater visibility and monitoring** than GitHub-managed runners offer.
+
+#### 3. **Cost Management**
+- GitHub Actions provides a **free tier**, but for:
+    - **Large projects**.
+    - **Long-running builds**.
+    - Costs add up quickly.
+- Cloud providers offer:
+    - **Sustained use discounts**.
+    - **Reserved instance pricing**.
+- Using **existing cloud instances** can save money.
+
+#### 4. **Ephemeral Runners for Cost Optimization**
+- You can use a **GitHub-managed runner** to:
+    - Spin up a **custom runner**.
+    - Run long jobs on the **custom runner**.
+    - **Tear down** the runner after the job completes.
+- This **avoids GitHub billing** for the long-running job.
