@@ -220,3 +220,29 @@ You can safely complete this course using a **GitHub Free account**, without wor
 - **Created by Atlassian** (adds credibility).
 - **Simplifies creating Jira issues from GitHub Actions workflows**.
 - Example of **integrating external services into your workflows**.
+
+
+
+<br><br><br>
+
+
+
+## Getting Running With Runners
+### What is a Runner?
+- A **runner** is a **virtual machine or compute instance** where jobs from your workflows **are executed**.
+- Can be:
+    - **GitHub-managed runners**.
+    - **Custom runners** (managed by you).
+
+### What is a Custom Runner?
+- A **custom runner** is a VM in **your own environment** where jobs are run.
+- Supported environments: **Linux, Windows, Mac**.
+- Can run in:
+    - **Cloud**.
+    - **Data center**.
+    - **Local workstation**.
+- **Security responsibility is yours** when using custom runners.
+- Analogy:
+    - **Custom runner = AWS EC2 instance** (you manage the infrastructure).
+    - **GitHub-managed runner = AWS Lambda function** (managed for you).
+
