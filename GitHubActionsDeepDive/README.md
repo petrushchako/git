@@ -293,7 +293,7 @@ In this lesson, we explore key security considerations when using GitHub Actions
 - Public contributions may introduce **malicious code**.
 - Protect secrets and infrastructure when working with **public repositories**.
 - Ensure workflows do not **automatically run** on untrusted PRs.
-- Reference GitHub’s [untrusted inputs security guide](https://docs.github.com/) for more details.
+- Reference GitHub’s [untrusted inputs security guide](https://securitylab.github.com/resources/github-actions-untrusted-input/) for more details.
 
 ### Community Actions
 - Treat **community actions** like any open-source tool:  
