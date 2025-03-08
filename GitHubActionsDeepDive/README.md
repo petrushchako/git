@@ -274,3 +274,51 @@ You can safely complete this course using a **GitHub Free account**, without wor
     - Run long jobs on the **custom runner**.
     - **Tear down** the runner after the job completes.
 - This **avoids GitHub billing** for the long-running job.
+
+
+
+<br><br><br>
+
+
+
+## Securing GitHub Actions
+In this lesson, we explore key security considerations when using GitHub Actions, including:
+- **Untrusted inputs**: Preventing malicious code injection.
+- **Community actions**: Best practices for secure usage.
+- **Custom runners**: Security risks and mitigation.
+- **General security**: Best practices for repositories and workflows.
+
+### Untrusted Inputs
+- Workflows can be triggered by various events (e.g., pull requests, comments).
+- Public contributions may introduce **malicious code**.
+- Protect secrets and infrastructure when working with **public repositories**.
+- Ensure workflows do not **automatically run** on untrusted PRs.
+- Reference GitHub’s [untrusted inputs security guide](https://docs.github.com/) for more details.
+
+### Community Actions
+- Treat **community actions** like any open-source tool:  
+  **Trust, but verify** (or rather, don’t trust at all).  
+- GitHub **organization settings** allow restricting action usage:
+  - Approve **specific** actions or **trusted providers**.
+  - Fork actions to maintain a **trusted state** before updating.
+
+### Custom Runners Security
+- **Risk**: Public repositories can trigger **untrusted** code execution on self-hosted runners.
+- **Mitigation Strategies**:
+  - **Use GitHub-hosted runners** for public repos.
+  - Limit **runner permissions** based on the **principle of least privilege**.
+  - Separate runners per **repository** to prevent cross-repo contamination.
+
+### General GitHub Security Practices
+- **Repository Visibility**:  
+  - **Public** repos increase accessibility but expand the attack surface.
+  - Keep repos **private** if public access is unnecessary.
+- **Branch Protections**:  
+  - Enforce **protected branches** (e.g., `main`, `develop`, release branches).
+  - Prevent direct **pushes** or **merges** to key branches.
+- **Pull Request Approvals**:  
+  - Require multiple **reviewers** to prevent unauthorized changes.
+  - Avoid direct deployment from PRs without **approval checks**.
+- **Secrets Management**:  
+  - Limit workflow access to **only necessary secrets**.
+  - Store secrets securely using **GitHub Secrets Manager**.
