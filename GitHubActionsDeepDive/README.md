@@ -322,3 +322,45 @@ In this lesson, we explore key security considerations when using GitHub Actions
 - **Secrets Management**:  
   - Limit workflow access to **only necessary secrets**.
   - Store secrets securely using **GitHub Secrets Manager**.
+
+
+<br><br><br>
+
+
+## **Designing Workflows and Pipelines**
+In this lesson, the focus is on understanding key concepts in designing workflows and pipelines. While this section is more theoretical, it builds the foundation for upcoming hands-on lessons.
+
+#### **Key Concepts**
+- **Best Practices**: 
+  - Best practices are useful but should be adapted to your organization's context.
+  - They often reflect the practices of high-performing organizations, like Google or Netflix, which may not align with your team's resources or needs.
+  - Iteration is crucial — workflows should evolve like codebases, requiring updates and improvements over time.
+
+- **CI Pyramid**: 
+  - Best practices are the foundation.
+  - Adding organizational context helps tailor these practices to your team's strengths and constraints.
+  - Iteration helps refine workflows over time.
+
+- **Adding Value with CI**: 
+  - Focus on improving:
+    - **Faster iteration** — enabling rapid experimentation and MVP development.
+    - **Fewer human errors** — automation reduces mistakes from manual steps.
+    - **Reduced toil** — repetitive manual tasks can be replaced with automated processes.
+
+- **Managing Pipelines at Scale**: 
+  - Large organizations may centralize CI ownership in a DevOps or shared services team.
+  - Managing thousands of pipelines can be challenging; solutions include:
+    - **Pipeline Templates**: Standardized templates (via YAML or private repos) for common frameworks like Java, Node, or .NET.
+    - **Empowering SMEs**: Allowing subject matter experts in application teams to manage their own pipelines.
+
+- **Pipeline Structure**: 
+  - **Small Jobs**: Flexible, parallelized steps with isolated tools per job; easier to resume from failures.
+  - **Large Jobs**: Minimized artifact passing and reduced configuration duplication; suitable for teams migrating from Bash/PowerShell scripts.
+
+- **Branching Strategies**: 
+  - Tailor branches to fit your release cycle and organizational needs.
+  - Consider:
+    - **Main/Dev branches** for simple workflows.
+    - **Feature branches** for individual development.
+    - **Release branches** for major deployments.
+  - Protect key branches to avoid accidental direct deployments.
