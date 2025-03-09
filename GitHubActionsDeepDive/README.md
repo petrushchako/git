@@ -364,3 +364,41 @@ In this lesson, the focus is on understanding key concepts in designing workflow
     - **Feature branches** for individual development.
     - **Release branches** for major deployments.
   - Protect key branches to avoid accidental direct deployments.
+
+
+
+<br><br><br>
+
+
+
+## Building Your Workflow
+### Lesson Structure Overview
+- **Repository**<br>In the next two sections, we will build out a workflow from our starter repo.
+- **Branches**<br>There is a branch corresponding to the end state of each lesson in case of issues.
+- **Follow Along**<br>You can follow along in a Cloud Sandbox (any AWS environment) or watch and take notes.
+
+### The Microservice
+
+```python
+def lambda_handler (event, context):
+    """Lambda function wrapper
+    Args:
+        event: trigger event dict
+        context: lambda methods and properties
+    Returns:
+        string: greating response
+    """
+    print('Starting function\n---------------')
+
+    if event["input"] == "Hello":
+        return "World"
+    else:
+        raise
+```
+
+### The Workflow
+
+
+
+
+### Forking the Repository
