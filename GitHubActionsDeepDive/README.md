@@ -396,9 +396,14 @@ def lambda_handler (event, context):
         raise
 ```
 
-### The Workflow
-
-
-
-
 ### Forking the Repository
+Fork the repository to start adding your personal changes.
+> [Repo for the lesson link](github.com/linuxacademy/content-github-actions-deep-dive-lesson)
+
+
+
+<br><br><br>
+
+
+
+## 
