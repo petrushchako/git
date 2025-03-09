@@ -406,4 +406,88 @@ Fork the repository to start adding your personal changes.
 
 
 
-## 
+## Building Your Code
+- This lesson covers how to trigger workflows and set up workflow execution in GitHub Actions.
+- Topics include:
+  - Creating a workflow file
+  - Workflow validation requirements
+  - Building and compiling actions
+  - Environment variables in workflows
+  - Steps required to execute a build job
+  - Updating the workflow
+
+### **Workflow Triggers**
+- Workflows in GitHub Actions can be triggered in multiple ways:
+  - **Push**: Executes workflows when code is pushed to the repository.
+  - **Pull Request**: Triggers workflows when a pull request is opened.
+  - **Branch/File Filtering**: Limits execution to specific branches or files.
+  - **Scheduled Execution**: Uses a CRON expression to run workflows at specific times.
+  - **Other Events**: Comments, issues being opened, and more.
+
+For this lesson, the **push** action is used as the trigger.
+
+### **Creating a Workflow File**
+- Workflows are stored in `.github/workflows/`
+- A new workflow file `action.yaml` is created.
+- **Workflow Name**: `"Deploy my Lambda Function"`
+- **Trigger**: Runs on push to the `main` branch.
+
+### **Building in Workflows**
+- Many programming languages require building before execution.
+- Python does not require building for AWS Lambda, but bundling libraries is useful for:
+  - Reducing latency
+  - Streamlining auditing
+  - Running in private VPCs without internet access
+- **Pip** (Python package manager) is used to install dependencies.
+
+### **Environment Variables in Workflows**
+- Available during workflow execution to provide metadata:
+  - **Repository Info**: Name, URL
+  - **Event Info**: Trigger type, user who initiated it
+  - **Commit Details**
+  - **Job and Runner Information**
+- Accessed using `env.<VARIABLE_NAME>` syntax.
+
+### **Build Job Steps**
+1. **Check out the code**: Uses `actions/checkout` to fetch the repository.
+2. **Set up Python**: Uses `actions/setup-python` with Python 3.8.
+3. **Install Dependencies**:
+   - Navigates to the `function` directory.
+   - Updates Pip.
+   - Installs dependencies from `requirements.txt` (if it exists) using:
+     ```sh
+     pip install -r requirements.txt -t .
+     ```
+4. **Create a Zip Bundle**:
+   - Zips all files in `function/` into a package named after the commit SHA:
+     ```sh
+     zip -r ../lambda_function_${{ github.sha }}.zip .
+     ```
+5. **Archive the Artifact**:
+   - Uses `actions/upload-artifact` to store the zip file for later workflow steps.
+
+### **Validating the Workflow Execution**
+- The workflow successfully runs after committing `action.yaml` to `main`.
+- In the **Actions Tab**, the execution log shows:
+  - Code checkout
+  - Python setup
+  - Dependency installation
+  - Zip creation
+  - Artifact storage
+- The artifact can be downloaded and inspected.
+
+### **Final Cleanup**
+- Deleted `init.yaml` (placeholder file) to prevent unnecessary workflow executions.
+
+### **Summary**
+- Created a workflow file in `.github/workflows/`
+- Explored various GitHub Actions triggers
+- Configured a **build job** with:
+  - Code checkout
+  - Python setup
+  - Dependency installation
+  - Zip packaging
+  - Artifact storage
+- Successfully executed the workflow and verified the results.
+
+> If any issues occur, refer to the `lesson-build` branch in the repository.
