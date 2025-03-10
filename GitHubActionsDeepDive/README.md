@@ -521,6 +521,30 @@ For example, to push a **Docker image** to GitHub Container Registry (GHCR):
 - Use the **GitHub token** for authentication.
 - Use the **build and push** community action.
 
+```yaml
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{github.repository}}
+
+jobs:
+  build-and-push-image:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Log in to the Container registry
+      uses: docker/login-action
+      with: 
+        registry: ${{env.REGISTRY}}
+        username: ${{github.actor}}
+        password: ${{secrets.GITHUB_TOKEN}}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action
+      with:
+        content: .
+        push: true
+```
+
 ### **Why We Won’t Use GitHub Packages**
 Our artifact is a **Python-based Lambda function packaged as a ZIP file**, which:
 - **Isn’t a library** that would be imported into other projects.
@@ -533,3 +557,8 @@ Instead of storing it as a release asset in GitHub, we will **upload it directly
 > - Jfrog Artifactory
 > - Cloud Storage Buckets (S3)
 
+
+<br><br><br>
+
+
+## 
