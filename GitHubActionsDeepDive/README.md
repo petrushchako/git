@@ -491,3 +491,45 @@ For this lesson, the **push** action is used as the trigger.
 - Successfully executed the workflow and verified the results.
 
 > If any issues occur, refer to the `lesson-build` branch in the repository.
+
+
+
+<br><br><br>
+
+
+## **Storing Artifacts in GitHub Actions**
+Now that we've built our code and generated an artifact, let's explore what to do with it.
+
+### **GitHub Packages Overview**
+GitHub Packages is a service that allows you to store, manage, and distribute packages directly within GitHub. It supports:
+- **Container images (Docker)**
+- **Ruby Gems**
+- **Node modules (npm)**
+- **Maven and Gradle dependencies (Java)**
+- **NuGet packages (.NET)**
+
+For other artifact types, such as Python packages, GitHub Packages does not provide direct support. However, artifacts can be stored as **release assets** within a repository.
+
+### **Publishing Artifacts in GitHub Packages**
+To publish an artifact in GitHub Packages, you need to:
+1. Build the package.
+2. Authenticate the GitHub runner to GitHub Packages.
+3. Push the package using an appropriate action.
+
+For example, to push a **Docker image** to GitHub Container Registry (GHCR):
+- Set the **registry name** to `GHCR`.
+- Use the **GitHub token** for authentication.
+- Use the **build and push** community action.
+
+### **Why We Won’t Use GitHub Packages**
+Our artifact is a **Python-based Lambda function packaged as a ZIP file**, which:
+- **Isn’t a library** that would be imported into other projects.
+- **Needs to be deployed via AWS Lambda**, which requires it to be stored in **S3**.
+
+Instead of storing it as a release asset in GitHub, we will **upload it directly to S3**, skipping an unnecessary step.
+
+> **Alternative Solutions**
+> - Sonartype Nexus
+> - Jfrog Artifactory
+> - Cloud Storage Buckets (S3)
+
