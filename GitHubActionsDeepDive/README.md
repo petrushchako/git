@@ -643,6 +643,20 @@ jobs:
         run: aws s3 cp github.sha.zip s3://my-bucket-name/
 ```
 
+### Option 2: Do it yourself
+```yaml
+- name: Download AWS CLI
+  run: curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+- name: Unzip AWS CLI
+  run: unzip awscliv2.zip
+- name: Install AWS CLI
+  run: sudo ./aws/install
+- name: Configure AWS CLI
+  run: |
+      export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+      export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      export AWS_DEFAULT_REGION=${{ AWS_REGION }}
+```
 
 ### **Execution and Verification**  
 1. **Commit the workflow file** in `.github/workflows/action.yaml`.  
