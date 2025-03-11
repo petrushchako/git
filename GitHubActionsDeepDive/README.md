@@ -619,3 +619,36 @@ The workflow consists of **three steps**:
 1. **Download the artifact** from a previous build job.  
 2. **Configure AWS credentials** using a pre-built GitHub Action.  
 3. **Upload the artifact to S3** using the AWS CLI.  
+
+#### **Example GitHub Actions Workflow (action.yaml)**  
+```yaml
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: zipped-bundle
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Upload to S3
+        run: aws s3 cp github.sha.zip s3://my-bucket-name/
+```
+
+
+### **Execution and Verification**  
+1. **Commit the workflow file** in `.github/workflows/action.yaml`.  
+2. **Trigger the workflow** by pushing a new commit.  
+3. **Monitor execution in the GitHub Actions tab**.  
+4. **Check the S3 bucket** in AWS to verify the uploaded artifact.  
+
+
+<br><br><br>
