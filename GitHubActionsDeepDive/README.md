@@ -596,4 +596,26 @@ Instead of storing it as a release asset in GitHub, we will **upload it directly
 <br><br><br>
 
 
-## 
+## **Uploading Artifacts to AWS from GitHub Actions**  
+### **Key Topics**  
+- Using **GitHub Secrets** for AWS credentials  
+- Configuring the **AWS CLI** in a GitHub workflow  
+- Adding an **upload job** to store the artifact in S3  
+
+### **Using GitHub Secrets for AWS Access**  
+GitHub Secrets are **encrypted environment variables** that help keep sensitive credentials secure. Secrets can be:  
+- **Repository-level** (specific to a repo)  
+- **Environment-level** (requires approval for access)  
+- **Organization-level** (shared across multiple repos)  
+
+To authenticate GitHub Actions with AWS:  
+1. **Create an IAM user** in AWS with `AWSLambda_FullAccess` and `AmazonS3FullAccess`.  
+2. **Store the AWS credentials** in GitHub as repository secrets:  
+   - `AWS_ACCESS_KEY_ID`  
+   - `AWS_SECRET_ACCESS_KEY`  
+
+### **Workflow Steps for Uploading to S3**  
+The workflow consists of **three steps**:  
+1. **Download the artifact** from a previous build job.  
+2. **Configure AWS credentials** using a pre-built GitHub Action.  
+3. **Upload the artifact to S3** using the AWS CLI.  
