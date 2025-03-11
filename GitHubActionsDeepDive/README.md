@@ -466,6 +466,41 @@ For this lesson, the **push** action is used as the trigger.
 5. **Archive the Artifact**:
    - Uses `actions/upload-artifact` to store the zip file for later workflow steps.
 
+```yaml
+name: Deploy my Lambda Function
+
+on: 
+  push:
+    branch:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install libraries
+        run: |
+            cd function
+            python -m pip install --upgrade pip
+            if [ -f requirements.txt ]; then pip install -r requirements.txt -t .; fi
+      - name: Create zip bundle
+        run: |
+            cd function
+            zip -r ../${{ github.sha }}.zip .
+      - name: Archive artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: zipped-bundle
+          path: ${{ github.sha }}.zip
+```
+
+
 ### **Validating the Workflow Execution**
 - The workflow successfully runs after committing `action.yaml` to `main`.
 - In the **Actions Tab**, the execution log shows:
