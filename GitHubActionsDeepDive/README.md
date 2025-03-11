@@ -618,8 +618,13 @@ To authenticate GitHub Actions with AWS:
       - `AmazonS3FullAccess`
     > Once you create a user, you will presented with `Access key ID` and `Secret access key`. **Copy those values for next step**.
 2. **Store the AWS credentials** in GitHub as repository secrets:  
-   - `AWS_ACCESS_KEY_ID`  
-   - `AWS_SECRET_ACCESS_KEY`  
+   1. In GitHub repository go to `Settings` and select `Secrets`
+   2. In **Actions secrets** section, select `New repository secret`
+   3. You will be presented with **key** and **value** input boxes (each secret created separately):
+      ||Secret key|Secret value|
+      |---|---|---|
+      |1.|`AWS_ACCESS_KEY_ID`|<aws_iam_user_access_key_id>|
+      |2.|`AWS_SECRET_ACCESS_KEY`|<aws_iam_user_secret_access_key>|
 
 ### **Workflow Steps for Uploading to S3**  
 The workflow consists of **three steps**:  
@@ -629,7 +634,12 @@ The workflow consists of **three steps**:
 
 #### **Example GitHub Actions Workflow (action.yaml)**  
 ```yaml
+. . .
+
 jobs:
+  build:
+    . . .
+
   upload:
     runs-on: ubuntu-latest
     needs: build
