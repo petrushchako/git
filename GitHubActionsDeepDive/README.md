@@ -609,7 +609,14 @@ GitHub Secrets are **encrypted environment variables** that help keep sensitive 
 - **Organization-level** (shared across multiple repos)  
 
 To authenticate GitHub Actions with AWS:  
-1. **Create an IAM user** in AWS with `AWSLambda_FullAccess` and `AmazonS3FullAccess`.  
+1. **Create an IAM user**:
+   1. Navigate to AWS IAM
+   2. User name: arbitrary name (e.g. `github_actions_user`)
+   3. AWS Access Type: [x] Access type: `Programmatic access`
+   4. Attach existing policies directly:
+      - `AWSLambda_FullAccess`
+      - `AmazonS3FullAccess`
+    > Once you create a user, you will presented with `Access key ID` and `Secret access key`. **Copy those values for next step**.
 2. **Store the AWS credentials** in GitHub as repository secrets:  
    - `AWS_ACCESS_KEY_ID`  
    - `AWS_SECRET_ACCESS_KEY`  
