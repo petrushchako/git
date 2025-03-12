@@ -737,3 +737,20 @@ jobs:
 - After fixing and committing changes, the workflow passed, and the Lambda function worked correctly.
 
 
+
+<br><br><br>
+
+
+
+## Setting Up Non-Production Environments
+In this section explores the limitations of static testing and compares it to functional testing. We then discuss setting up testing environments in GitHub Actions workflows and how to create ephemeral testing environments for dynamic testing.  
+
+### Static vs. Functional Testing  
+- **Static testing** evaluates code without executing it, checking syntax, formatting, and isolated issues.  
+- **Functional testing** tests built or compiled code for expected outputs and performance issues.  
+- Functional testing requires a dedicated environment, as testing in production can disrupt users, and testing in development can lead to conflicts.  
+
+### Benefits of Ephemeral Testing Environments  
+- **Data centers** require maintaining dedicated test environments.  
+- **Cloud environments** allow ephemeral testing environments that are spun up on demand and destroyed after testing.  
+- **Infrastructure as Code (IaC)** ensures consistency across environments.  
