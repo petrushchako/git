@@ -466,39 +466,39 @@ For this lesson, the **push** action is used as the trigger.
 5. **Archive the Artifact**:
    - Uses `actions/upload-artifact` to store the zip file for later workflow steps.
 
-```yaml
-name: Deploy my Lambda Function
+    ```yaml
+    name: Deploy my Lambda Function
 
-on: 
-  push:
-    branch:
-      - main
+    on: 
+      push:
+        branch:
+          - main
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Set up python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - name: Install libraries
-        run: |
-            cd function
-            python -m pip install --upgrade pip
-            if [ -f requirements.txt ]; then pip install -r requirements.txt -t .; fi
-      - name: Create zip bundle
-        run: |
-            cd function
-            zip -r ../${{ github.sha }}.zip .
-      - name: Archive artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: zipped-bundle
-          path: ${{ github.sha }}.zip
-```
+    jobs:
+      build:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v2
+          - name: Set up python
+            uses: actions/setup-python@v2
+            with:
+              python-version: 3.8
+          - name: Install libraries
+            run: |
+                cd function
+                python -m pip install --upgrade pip
+                if [ -f requirements.txt ]; then pip install -r requirements.txt -t .; fi
+          - name: Create zip bundle
+            run: |
+                cd function
+                zip -r ../${{ github.sha }}.zip .
+          - name: Archive artifact
+            uses: actions/upload-artifact@v2
+            with:
+              name: zipped-bundle
+              path: ${{ github.sha }}.zip
+    ```
 
 
 ### **Validating the Workflow Execution**
@@ -556,29 +556,29 @@ For example, to push a **Docker image** to GitHub Container Registry (GHCR):
 - Use the **GitHub token** for authentication.
 - Use the **build and push** community action.
 
-```yaml
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{github.repository}}
+  ```yaml
+  env:
+    REGISTRY: ghcr.io
+    IMAGE_NAME: ${{github.repository}}
 
-jobs:
-  build-and-push-image:
-    - name: Checkout Code
-      uses: actions/checkout@v2
+  jobs:
+    build-and-push-image:
+      - name: Checkout Code
+        uses: actions/checkout@v2
 
-    - name: Log in to the Container registry
-      uses: docker/login-action
-      with: 
-        registry: ${{env.REGISTRY}}
-        username: ${{github.actor}}
-        password: ${{secrets.GITHUB_TOKEN}}
+      - name: Log in to the Container registry
+        uses: docker/login-action
+        with: 
+          registry: ${{env.REGISTRY}}
+          username: ${{github.actor}}
+          password: ${{secrets.GITHUB_TOKEN}}
 
-    - name: Build and push Docker image
-      uses: docker/build-push-action
-      with:
-        content: .
-        push: true
-```
+      - name: Build and push Docker image
+        uses: docker/build-push-action
+        with:
+          content: .
+          push: true
+  ```
 
 ### **Why We Won’t Use GitHub Packages**
 Our artifact is a **Python-based Lambda function packaged as a ZIP file**, which:
@@ -633,47 +633,47 @@ The workflow consists of **three steps**:
 3. **Upload the artifact to S3** using the AWS CLI.  
 
 #### **Example GitHub Actions Workflow (action.yaml)**  
-```yaml
-. . .
+  ```yaml
+  . . .
 
-jobs:
-  build:
-    . . .
+  jobs:
+    build:
+      . . .
 
-  upload:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: zipped-bundle
+    upload:
+      runs-on: ubuntu-latest
+      needs: build
+      steps:
+        - name: Download artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: zipped-bundle
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+        - name: Configure AWS credentials
+          uses: aws-actions/configure-aws-credentials@v2
+          with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: us-east-1
 
-      - name: Upload to S3
-        run: aws s3 cp github.sha.zip s3://my-bucket-name/
-```
+        - name: Upload to S3
+          run: aws s3 cp github.sha.zip s3://my-bucket-name/
+  ```
 
 ### Option 2: Do it yourself
-```yaml
-- name: Download AWS CLI
-  run: curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-- name: Unzip AWS CLI
-  run: unzip awscliv2.zip
-- name: Install AWS CLI
-  run: sudo ./aws/install
-- name: Configure AWS CLI
-  run: |
-      export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
-      export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      export AWS_DEFAULT_REGION=${{ AWS_REGION }}
-```
+  ```yaml
+  - name: Download AWS CLI
+    run: curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  - name: Unzip AWS CLI
+    run: unzip awscliv2.zip
+  - name: Install AWS CLI
+    run: sudo ./aws/install
+  - name: Configure AWS CLI
+    run: |
+        export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+        export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        export AWS_DEFAULT_REGION=${{ AWS_REGION }}
+  ```
 
 ### **Execution and Verification**  
 1. **Commit the workflow file** in `.github/workflows/action.yaml`.  
@@ -705,26 +705,26 @@ jobs:
    - `flake8 . --select=E9,F63,F7,F82` (Errors that fail the workflow)
    - `flake8 . --exit-zero` (Warnings that don’t fail the workflow)
 
-```yaml
-jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Set up python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - name: Install linting libraries
-        run: |
-          cd function
-          pip install flake8
-      - name: Lint with flake8
-        run: |
-            flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics # Strict checks
-            flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics # Info-only checks
-```
+    ```yaml
+    jobs:
+      lint:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v2
+          - name: Set up python
+            uses: actions/setup-python@v2
+            with:
+              python-version: 3.8
+          - name: Install linting libraries
+            run: |
+              cd function
+              pip install flake8
+          - name: Lint with flake8
+            run: |
+                flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics # Strict checks
+                flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics # Info-only checks
+    ```
 
 
 #### Ensuring Lint Runs Before Build
@@ -750,6 +750,13 @@ In this section explores the limitations of static testing and compares it to fu
 - **Functional testing** tests built or compiled code for expected outputs and performance issues.  
 - Functional testing requires a dedicated environment, as testing in production can disrupt users, and testing in development can lead to conflicts.  
 
+||**Static**|**Functional**|
+|---|---|---|
+|**Tests**|Raw code|Built or compiled code|
+|**Detects**|**Unit tests**: Issues in isolation<br>**Linters**: Syntax and formatting errors|Deviations from expected output|
+|**Resources**|Checks execute on runner|Needs non-prod/testing environment|
+
+
 ### Benefits of Ephemeral Testing Environments  
 - **Data centers** require maintaining dedicated test environments.  
 - **Cloud environments** allow ephemeral testing environments that are spun up on demand and destroyed after testing.  
@@ -766,26 +773,32 @@ In this section explores the limitations of static testing and compares it to fu
 - `if: always()` ensures cleanup even if a step fails, preventing leftover resources.  
 - Update `needs` in the deploy job from `upload` to `test` to ensure the sequence is correct.  
 
-```yaml
-test:  
-  runs-on: ubuntu-latest  
-  needs: upload  
-  steps:  
-    - name: Configure AWS credentials  
-      uses: aws-actions/configure-aws-credentials@v1  
-      with:  
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}  
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  
-        aws-region: us-east-1  
-    - name: Create test function  
-      run: |  
-          aws lambda create-function --function-name test-function \  
-            --code S3Bucket=YOUR_S3_BUCKET,S3Key=${{ github.sha }}.zip \  
-            --handler lambda_function.lambda_handler --runtime python3.8 \  
-            --role arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/my-lambda-role  
-    - name: Wait 30 seconds  
-      run: sleep 30  
-    - name: Destroy test function  
-      if: ${{ always() }}  
-      run: aws lambda delete-function --function-name test-function
-```
+  > **Verify AWS CLI installation**
+  >   ```yaml
+  >   - name: Check AWS CLI version
+  >     run: aws --version
+  >   ```
+
+  ```yaml
+  test:  
+    runs-on: ubuntu-latest  
+    needs: upload  
+    steps:  
+      - name: Configure AWS credentials  
+        uses: aws-actions/configure-aws-credentials@v1  
+        with:  
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}  
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  
+          aws-region: us-east-1  
+      - name: Create test function  
+        run: |  
+            aws lambda create-function --function-name test-function \  
+              --code S3Bucket=YOUR_S3_BUCKET,S3Key=${{ github.sha }}.zip \  
+              --handler lambda_function.lambda_handler --runtime python3.8 \  
+              --role arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/my-lambda-role  
+      - name: Wait 30 seconds  
+        run: sleep 30  
+      - name: Destroy test function  
+        if: ${{ always() }}  
+        run: aws lambda delete-function --function-name test-function
+  ```
