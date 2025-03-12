@@ -746,7 +746,7 @@ jobs:
 In this section explores the limitations of static testing and compares it to functional testing. We then discuss setting up testing environments in GitHub Actions workflows and how to create ephemeral testing environments for dynamic testing.  
 
 ### Static vs. Functional Testing  
-- **Static testing** evaluates code without executing it, checking syntax, formatting, and isolated issues.  
+- **Static testing** evaluates code without executing it, checking syntax, formatting, and isolated issues. Quickly evaluates code with unit tests and syntax checks.
 - **Functional testing** tests built or compiled code for expected outputs and performance issues.  
 - Functional testing requires a dedicated environment, as testing in production can disrupt users, and testing in development can lead to conflicts.  
 
@@ -765,3 +765,27 @@ In this section explores the limitations of static testing and compares it to fu
 - The testing job runs **after the upload step** but **before the deploy step** to prevent deploying faulty code.  
 - `if: always()` ensures cleanup even if a step fails, preventing leftover resources.  
 - Update `needs` in the deploy job from `upload` to `test` to ensure the sequence is correct.  
+
+```yaml
+test:  
+  runs-on: ubuntu-latest  
+  needs: upload  
+  steps:  
+    - name: Configure AWS credentials  
+      uses: aws-actions/configure-aws-credentials@v1  
+      with:  
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}  
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  
+        aws-region: us-east-1  
+    - name: Create test function  
+      run: |  
+          aws lambda create-function --function-name test-function \  
+            --code S3Bucket=YOUR_S3_BUCKET,S3Key=${{ github.sha }}.zip \  
+            --handler lambda_function.lambda_handler --runtime python3.8 \  
+            --role arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/my-lambda-role  
+    - name: Wait 30 seconds  
+      run: sleep 30  
+    - name: Destroy test function  
+      if: ${{ always() }}  
+      run: aws lambda delete-function --function-name test-function
+```
