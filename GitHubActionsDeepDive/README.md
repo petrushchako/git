@@ -705,6 +705,28 @@ jobs:
    - `flake8 . --select=E9,F63,F7,F82` (Errors that fail the workflow)
    - `flake8 . --exit-zero` (Warnings that don’t fail the workflow)
 
+```yaml
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install linting libraries
+        run: |
+          cd function
+          pip install flake8
+      - name: Lint with flake8
+        run: |
+            flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics # Strict checks
+            flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics # Info-only checks
+```
+
+
 #### Ensuring Lint Runs Before Build
 - Defined a new job called `lint` in the workflow.
 - Used `needs: lint` in the `build` job to enforce execution order.
