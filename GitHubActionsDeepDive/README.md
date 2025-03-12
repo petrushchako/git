@@ -754,3 +754,14 @@ In this section explores the limitations of static testing and compares it to fu
 - **Data centers** require maintaining dedicated test environments.  
 - **Cloud environments** allow ephemeral testing environments that are spun up on demand and destroyed after testing.  
 - **Infrastructure as Code (IaC)** ensures consistency across environments.  
+
+### Creating an Ephemeral Testing Environment  
+1. **Configure AWS CLI** in GitHub Actions.  
+2. **Create a test Lambda function** using the AWS CLI, sourcing code from an S3 bucket.  
+3. **Insert a placeholder (sleep 30s)** to observe the test function in AWS.  
+4. **Destroy the test function** using `aws lambda delete-function`.  
+
+### Workflow Integration  
+- The testing job runs **after the upload step** but **before the deploy step** to prevent deploying faulty code.  
+- `if: always()` ensures cleanup even if a step fails, preventing leftover resources.  
+- Update `needs` in the deploy job from `upload` to `test` to ensure the sequence is correct.  
