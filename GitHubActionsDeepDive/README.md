@@ -683,3 +683,35 @@ jobs:
 
 
 <br><br><br>
+
+
+## Enhancing Your Workflow
+
+## Catching Errors Sooner: Code Quality Checks
+### What is Static Code Analysis?
+- Runs checks on raw/uncompiled code.
+- Can detect:
+  - Syntax errors (e.g., missing parentheses).
+  - Style issues.
+  - Version inconsistencies.
+  - Security vulnerabilities.
+- **Fails fast**: Identifies issues before build and deployment, saving time and cost.
+
+### Adding a Linting Job to GitHub Actions
+1. **Checkout Code**: Pulls repository content into the Runner.
+2. **Set Up Python**: Configures Python on the Runner.
+3. **Install Flake8**: A Python linting tool.
+4. **Run Lint Checks**:
+   - `flake8 . --select=E9,F63,F7,F82` (Errors that fail the workflow)
+   - `flake8 . --exit-zero` (Warnings that don’t fail the workflow)
+
+#### Ensuring Lint Runs Before Build
+- Defined a new job called `lint` in the workflow.
+- Used `needs: lint` in the `build` job to enforce execution order.
+
+### Results & Takeaways
+- Linting job **failed**, preventing the build, upload, and deploy jobs from running.
+- Error log pointed to the missing parenthesis in the function.
+- After fixing and committing changes, the workflow passed, and the Lambda function worked correctly.
+
+
