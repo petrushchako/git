@@ -802,3 +802,23 @@ In this section explores the limitations of static testing and compares it to fu
         if: ${{ always() }}  
         run: aws lambda delete-function --function-name test-function
   ```
+
+#### Create a Test Lambda Function details
+  ```yaml
+  - name: Create test function
+    run: |
+        aws lambda create-function --function-name test-function \
+          --code S3Bucket=YOUR_S3_BUCKET,S3Key=${{ github.sha }}.zip \
+          --handler lambda_function.lambda_handler --runtime python3.8 \
+          --role arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/my-lambda-role
+  ```
+  - Runs an AWS CLI command to create a Lambda function.
+  - `--function-name test-function`: Names the Lambda function `test-function`.
+  - `--code S3Bucket=YOUR_S3_BUCKET,S3Key=${{ github.sha }}.zip`:
+    - `S3Bucket=YOUR_S3_BUCKET`: Specifies the S3 bucket containing the function code.
+    - `S3Key=${{ github.sha }}.zip`: Fetches the code package named after the current commit SHA. This ensures the function uses the latest uploaded code.
+  - `--handler lambda_function.lambda_handler`: Defines the entry point function inside the Lambda script.
+  - `--runtime python3.8`: Specifies the Python 3.8 runtime for execution.
+  - `--role arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/my-lambda-role`:
+    - Assigns the IAM role needed for Lambda execution.
+    - `AWS_ACCOUNT_ID` is stored as a secret for security and portability.
