@@ -904,3 +904,33 @@ In this section explores the limitations of static testing and compares it to fu
 - **Scales testing efficiently** with minimal changes.
 - **Easier to add new test cases** by modifying the matrix.
 - **Supports multiple configurations** (e.g., OS, runtime versions).
+
+
+
+<br><br><br>
+
+
+## **Adding Documentation**
+This lesson explores how **Continuous Integration (CI)** can do more than just building and deploying code. Specifically, it demonstrates how to automate **documentation deployment** using **GitHub Pages**.
+
+
+### **CI Can Automate More Than Builds**
+- CI/CD pipelines can automate tasks beyond building and deploying code.
+- Examples of automation:
+  - **Updating tickets** (e.g., closing JIRA tickets upon deployment).
+  - **Triggering notifications** (e.g., sending emails or messages).
+  - **Workflow analytics** (e.g., analyzing bottlenecks in execution time).
+  - **Queue-based event triggers** (e.g., sending messages to a queue for further actions).
+
+### **Introduction to GitHub Pages**
+- **GitHub Pages** is a free hosting service for **static websites** (similar to AWS S3).
+- It supports:
+  - **Plain HTML**
+  - **JavaScript frameworks**
+  - **Static site generators** like **Jekyll** or **MkDocs**.
+- Uses a specific branch (e.g., `gh-pages`) to serve static content.
+
+#### **Use Cases for GitHub Pages**
+- Hosting **project documentation** (e.g., with MkDocs or Sphinx).
+- **Test result dashboards** (e.g., publishing HTML test reports).
+- **Roadmaps & project status pages**.
