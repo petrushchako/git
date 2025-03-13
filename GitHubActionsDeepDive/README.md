@@ -936,8 +936,32 @@ This lesson explores how **Continuous Integration (CI)** can do more than just b
 - **Roadmaps & project status pages**.
 
 ### **Setting Up the Documentation Workflow**
+
+```sh
+repository(lesson-docs)
+├── .github
+│    └── workflows
+│         └── action.yaml
+├── docs
+│   ├── about.md
+│   └── index.md
+├── README.md
+└── mkdocs.yaml
+
+```
+
 1. **Checkout the Repository**
    - Clone the `lesson-docs` branch containing markdown files and YAML configurations.
+   - `mkdocs.yaml`
+      ```yaml
+      site_name: My Docs
+      nas:
+        - Home: index.md
+        - About: about.md
+      theme: readthedocs
+      ```
+
+
 2. **Required Files for Documentation**
    - `mkdocs.yaml`: Configuration file defining documentation structure and themes.
    - `docs/`: Contains markdown (`.md`) files for content.
@@ -946,6 +970,21 @@ This lesson explores how **Continuous Integration (CI)** can do more than just b
    - **Two steps:**
      - **Checkout the code**.
      - **Deploy Docs** using a **community action** (needs a config file & GitHub token).
+   - `.github/workflows/actions.yaml`
+  
+      ```yaml
+      docs:
+        runs-on: ubuntu-latest
+        needs: deploy
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v2
+          - name: Deploy docs
+            uses: mhausenblas/mkdocs-deploy-gh-pages@master
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              CONFIG_FILE: mkdocs.yaml
+      ```
 
 ### **Merging & Deploying the Documentation**
 1. **Merge `lesson-docs` branch** into `main`.
