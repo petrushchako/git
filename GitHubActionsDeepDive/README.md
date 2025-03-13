@@ -934,3 +934,25 @@ This lesson explores how **Continuous Integration (CI)** can do more than just b
 - Hosting **project documentation** (e.g., with MkDocs or Sphinx).
 - **Test result dashboards** (e.g., publishing HTML test reports).
 - **Roadmaps & project status pages**.
+
+### **Setting Up the Documentation Workflow**
+1. **Checkout the Repository**
+   - Clone the `lesson-docs` branch containing markdown files and YAML configurations.
+2. **Required Files for Documentation**
+   - `mkdocs.yaml`: Configuration file defining documentation structure and themes.
+   - `docs/`: Contains markdown (`.md`) files for content.
+3. **GitHub Actions Workflow for Deployment**
+   - **Runs on a Linux runner** after deployment is complete.
+   - **Two steps:**
+     - **Checkout the code**.
+     - **Deploy Docs** using a **community action** (needs a config file & GitHub token).
+
+### **Merging & Deploying the Documentation**
+1. **Merge `lesson-docs` branch** into `main`.
+2. **Resolve merge conflicts** if necessary.
+3. **Push the changes** to trigger the GitHub Actions workflow.
+4. **Monitor the workflow execution** under the **Actions** tab.
+5. **Configure GitHub Pages**:
+   - Set `gh-pages` as the source branch.
+   - Select **root** as the folder.
+   - Wait for the website to be published.
