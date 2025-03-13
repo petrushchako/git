@@ -822,3 +822,35 @@ In this section explores the limitations of static testing and compares it to fu
   - `--role arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/my-lambda-role`:
     - Assigns the IAM role needed for Lambda execution.
     - `AWS_ACCOUNT_ID` is stored as a secret for security and portability.
+
+
+
+<br><br><br>
+
+
+## Testing Before Production
+### **Using Matrices in GitHub Actions**
+- **Matrix** allows running multiple test cases with different values.
+- Each test runs in **parallel** with a different matrix value.
+- Example: A matrix for OS (`ubuntu`, `windows`, `macos`) and Python versions (`3.4`, `3.8`) would generate **8 jobs**.
+
+### **Implementing Testing in the Workflow**
+1. **Define a matrix under `strategy` in the test job**  
+   - Example: Inputs `"Hello"` and `"Hi"` sent to the Lambda function.  
+   
+2. **Modify function names to avoid conflicts**  
+   - Since multiple jobs create functions, unique names prevent namespace collisions.  
+
+3. **Invoke the test function**  
+   - AWS Lambda is invoked with a **test payload** matching the matrix input.
+   - The expected output should not contain "error."
+
+4. **Handle errors and debug issues**  
+   - The first test failed because the function only handled `"Hello"`, returning `"World"`.  
+   - Added logic to handle `"Hi"`, returning `"Hi There"`.  
+   - Re-ran tests, and both cases passed successfully.
+
+### **Benefits of Using Matrices**
+- **Scales testing efficiently** with minimal changes.
+- **Easier to add new test cases** by modifying the matrix.
+- **Supports multiple configurations** (e.g., OS, runtime versions).
