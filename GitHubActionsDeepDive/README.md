@@ -834,6 +834,21 @@ In this section explores the limitations of static testing and compares it to fu
 - Each test runs in **parallel** with a different matrix value.
 - Example: A matrix for OS (`ubuntu`, `windows`, `macos`) and Python versions (`3.4`, `3.8`) would generate **8 jobs**.
 
+    ```yaml
+    - matrix:
+      os: [ubuntu-18.04, ubuntu-20.04, Windows, MacOS]
+      python: [3.4, 3.8]
+    - runs-on: ${{ matrix.os }}
+    - uses: actions/setup-python@v2
+      with: 
+        python-version: ${{ matrix.python }}
+    ```
+    ||**python 3.4**|**python 3.8**|
+    |Ubuntu-18|Job-1|Job-5|
+    |Ubuntu-20|Job-2|Job-6|
+    |Windows|Job-3|Job-7|
+    |MacOs|Job-4|Job-8|
+    
 ### **Implementing Testing in the Workflow**
 1. **Define a matrix under `strategy` in the test job**  
    - Example: Inputs `"Hello"` and `"Hi"` sent to the Lambda function.  
