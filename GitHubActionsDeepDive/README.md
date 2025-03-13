@@ -848,7 +848,7 @@ In this section explores the limitations of static testing and compares it to fu
     |Ubuntu-20|Job-2|Job-6|
     |Windows|Job-3|Job-7|
     |MacOs|Job-4|Job-8|
-    
+
 ### **Implementing Testing in the Workflow**
 1. **Define a matrix under `strategy` in the test job**  
    - Example: Inputs `"Hello"` and `"Hi"` sent to the Lambda function.  
@@ -864,6 +864,41 @@ In this section explores the limitations of static testing and compares it to fu
    - The first test failed because the function only handled `"Hello"`, returning `"World"`.  
    - Added logic to handle `"Hi"`, returning `"Hi There"`.  
    - Re-ran tests, and both cases passed successfully.
+
+```yaml
+  test:  
+    runs-on: ubuntu-latest  
+    needs: upload
+    strategy:
+      matrix: ["Hello", "Hi"]
+    steps:  
+      - name: Configure AWS credentials  
+        uses: aws-actions/configure-aws-credentials@v1  
+        with:  
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}  
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  
+          aws-region: us-east-1  
+      - name: Create test function  
+        run: |  
+            aws lambda create-function --function-name test-function-${{ matrix.input }} \  
+              --code S3Bucket=YOUR_S3_BUCKET,S3Key=${{ github.sha }}.zip \  
+              --handler lambda_function.lambda_handler --runtime python3.8 \  
+              --role arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/my-lambda-role
+      - name: Invoke test function
+        run: |
+            aws lambda invoke --function-name test-function-${{ matrxi.input }} \
+              --payload $(echo "{\"input\": \"$${{ matrix.input }}\"}" | base64) \
+              --output json out
+            if grep -q "Error" out; then
+              exit 1
+            fi
+      - name: Wait 30 seconds  
+        run: sleep 30  
+      - name: Destroy test function  
+        if: ${{ always() }}  
+        run: aws lambda delete-function --function-name test-function-${{ matrix.input }}
+  ```
+
 
 ### **Benefits of Using Matrices**
 - **Scales testing efficiently** with minimal changes.
