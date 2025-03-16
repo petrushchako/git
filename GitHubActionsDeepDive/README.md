@@ -995,3 +995,42 @@ repository(lesson-docs)
    - Set `gh-pages` as the source branch.
    - Select **root** as the folder.
    - Wait for the website to be published.
+
+
+
+<br><br><br>
+
+
+
+## Reviewing the Workflow
+### Key Takeaways
+- **Overview of Achievements:**  
+  - Built a workflow from a blank file to a robust CI/CD solution.
+  - Implemented multiple levels of testing to ensure quality and prevent bad deploys.
+  - Integrated automation beyond build and deployment.
+
+### **1. Static Quality Checks**
+- Implemented a **linter** to fail fast and catch issues early.
+- Helps maintain **code hygiene** (e.g., enforcing formatting standards).
+- Performs **dependency checks** to prevent insecure or outdated dependencies.
+
+### **2. Ephemeral Testing Environments**
+- **Infrastructure as Code (IaC)** ensures production-like environments for testing.
+- Reduces inconsistencies between testing and production.
+- **Cost-efficient:** Environments exist only when needed, avoiding ongoing cloud costs.
+
+### **3. Parallel Testing with Matrices**
+- Used **matrix strategies** to run test cases simultaneously.
+- Increased **flexibility and scalability** of tests without affecting existing cases.
+- Stacked matrices can test across **OS, language versions, container images, and cloud environments**.
+
+### **4. Automating Documentation Updates**
+- Documentation is integrated into the workflow using GitHub Actions.
+- Reduces manual effort and ensures documentation stays up-to-date.
+- GitHub Pages can be leveraged for public visibility.
+
+### **Final Thoughts**
+- **Fail fast** with static quality checks.
+- **Ephemeral environments** provide cost savings and accurate testing.
+- **Matrices enhance scalability** and test coverage.
+- **Workflows go beyond CI/CD**—they can automate documentation and other development tasks.
