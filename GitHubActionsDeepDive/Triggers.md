@@ -208,3 +208,71 @@ on:
     types: [submitted]
 ```
 - Runs when a review is submitted on a pull request.
+- If you're using **Jenkins with GitHub** and have integrated it with **GitHub Checks API**, then `check_run` and `status` events can be used to trigger workflows based on Jenkins' job status updates.
+
+
+### **Example 1: Trigger a Workflow When a Jenkins Job Completes**
+#### **Scenario**
+You have a **Jenkins pipeline** that runs CI/CD jobs and reports results back to GitHub using commit statuses (`pending`, `success`, `failure`). You want a **GitHub Actions workflow** to run **only after Jenkins finishes its job**.
+
+#### **How It Works**
+1. **Jenkins runs a job for a pull request (PR).**  
+2. **Jenkins updates the commit status (`status` event in GitHub).**  
+3. **GitHub Actions triggers based on this status event.**
+
+#### **Jenkins Configuration**
+In your **Jenkinsfile**, you can set commit statuses using GitHub’s API:
+```groovy
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    // Set GitHub status to "pending" at the start
+                    sh 'curl -X POST -H "Authorization: token YOUR_GITHUB_TOKEN" \
+                        -d "{\\"state\\":\\"pending\\", \\"context\\":\\"Jenkins Build\\"}" \
+                        https://api.github.com/repos/YOUR_ORG/YOUR_REPO/statuses/${GIT_COMMIT}'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'echo "Running tests..."'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    def status = currentBuild.result == 'SUCCESS' ? 'success' : 'failure'
+                    // Update GitHub with the final build status
+                    sh 'curl -X POST -H "Authorization: token YOUR_GITHUB_TOKEN" \
+                        -d "{\\"state\\":\\"' + status + '\\", \\"context\\":\\"Jenkins Build\\"}" \
+                        https://api.github.com/repos/YOUR_ORG/YOUR_REPO/statuses/${GIT_COMMIT}'
+                }
+            }
+        }
+    }
+}
+```
+
+#### **GitHub Actions Workflow to React to Jenkins Job**
+```yaml
+on:
+  status:
+
+jobs:
+  after-jenkins:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if Jenkins Build Succeeded
+        run: echo "Jenkins build completed, proceeding with GitHub Actions workflow!"
+```
+
+#### **What Happens?**
+- **Jenkins builds the project** and sends a **pending status** to GitHub at the start.
+- **When Jenkins finishes**, it sends a **success** or **failure** status.
+- **GitHub Actions workflow triggers on `status`**, allowing it to take further steps like:
+  - Deploying artifacts
+  - Running security scans
+  - Notifying teams via Slack
