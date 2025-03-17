@@ -125,6 +125,35 @@ on:
 ```
 - Allows triggering workflows from external applications or repositories.
 
+#### **How to Trigger the Custom Event**
+To manually trigger this workflow, send a POST request to GitHub’s API using `curl`:
+```bash
+curl -X POST -H "Accept: application/vnd.github.everest-preview+json" \
+     -H "Authorization: token YOUR_PERSONAL_ACCESS_TOKEN" \
+     https://api.github.com/repos/OWNER/REPO/dispatches \
+     -d '{"event_type": "custom-event-name", "client_payload": {"key": "value"}}'
+```
+- Replace `OWNER/REPO` with your repository details.
+- `"custom-event-name"` must match the event type defined in the workflow.
+- `client_payload` allows sending extra data that the workflow can use.
+
+#### **Accessing the Payload in the Workflow**
+Inside the workflow, you can access the payload using `${{ github.event.client_payload.key }}`.
+Example:
+```yaml
+jobs:
+  custom-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read Payload
+        run: echo "Received: ${{ github.event.client_payload.key }}"
+```
+
+### **Use Cases for Custom Events**
+- **Triggering workflows from external CI/CD pipelines.**
+- **Starting workflows from another GitHub Action.**
+- **Automating deployment steps triggered by external services.**
+
 
 <br><br><br>
 
