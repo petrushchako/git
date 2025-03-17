@@ -167,7 +167,10 @@ on:
       - completed
 ```
 - Runs when the "Build and Test" workflow completes.
-
+- When using workflow_run to track other workflows in GitHub Actions, the types field allows you to specify when the workflow should trigger. The available types are:
+  - `requested` – The workflow is about to start (it has been requested but hasn't started running yet).
+  - `completed` – The workflow has finished running, regardless of success or failure.
+  - `in_progress` – The workflow is currently running.
 
 <br><br><br>
 
