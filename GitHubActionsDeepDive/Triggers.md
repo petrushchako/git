@@ -276,3 +276,33 @@ jobs:
   - Deploying artifacts
   - Running security scans
   - Notifying teams via Slack
+
+<br>
+
+### **Example 2: Re-run GitHub Actions If Jenkins Job Is Re-triggered**
+#### **Scenario**
+- Jenkins provides a **re-run option** for failed jobs.
+- If a user **manually re-runs Jenkins**, you want to **automatically re-trigger a GitHub Actions workflow**.
+
+#### **GitHub Actions Workflow**
+```yaml
+on:
+  check_run:
+    types: [rerequested]
+
+jobs:
+  reprocess:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Re-run after Jenkins re-trigger
+        run: echo "Jenkins job was re-triggered, running GitHub Actions workflow again!"
+```
+#### **What Happens?**
+1. A Jenkins **build is manually restarted**.
+2. Jenkins updates the **check run** with `rerequested`.
+3. **GitHub Actions detects the event** and re-runs the workflow.
+
+#### **When Would You Use This?**
+- **CI/CD Pipelines:** If Jenkins handles builds but GitHub Actions deploys artifacts.  
+- **Quality Gates:** Ensure Jenkins test results are validated before proceeding.  
+- **Incident Response:** If a Jenkins failure occurs, auto-trigger a GitHub Actions remediation workflow.  
