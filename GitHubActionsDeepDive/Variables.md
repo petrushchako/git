@@ -48,3 +48,50 @@ These variables store the output of previous steps in a job.
 | Variable | Description |
 |----------|-------------|
 | `steps.<step_id>.outputs.<output_name>` | Access outputs from a previous step |
+
+<br>
+
+## 5. **Secrets Context Variables (`secrets.*`)**
+These variables store encrypted secrets.
+| Variable | Description |
+|----------|-------------|
+| `secrets.GITHUB_TOKEN` | A built-in authentication token for GitHub API requests |
+| `secrets.<secret_name>` | Any user-defined secret stored in the repository |
+
+<br>
+
+## 6. **Environment Context Variables (`env.*`)**
+These variables allow access to environment variables.
+| Variable | Description |
+|----------|-------------|
+| `env.<variable_name>` | Any custom environment variable defined in the workflow |
+
+<br>
+
+## 7. **Matrix Context Variables (`matrix.*`)**
+These variables provide access to matrix job values.
+| Variable | Description |
+|----------|-------------|
+| `matrix.<variable_name>` | Access matrix-defined variables |
+
+<br>
+
+## 8. **Strategy Context Variables (`strategy.*`)**
+These variables provide access to the job's strategy settings.
+| Variable | Description |
+|----------|-------------|
+| `strategy.job-index` | The index of the current job in a matrix |
+
+<br><hr>
+
+### **Example Usage**
+```yaml
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print GitHub Variables
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Triggered by: ${{ github.actor }}"
+          echo "Running on: ${{ runner.os }}"
