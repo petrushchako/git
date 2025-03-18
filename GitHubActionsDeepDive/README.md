@@ -5,7 +5,7 @@ Continuous integration, delivery, and deployment are quickly going from nice-to-
 
 <br>
 
-> Demo project:
+> Demo project:<br>
 > https://github.com/linuxacademy/content-github-actions-deep-dive-lesson
 
 <br>
