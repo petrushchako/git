@@ -1,8 +1,11 @@
 # GitHub Action Deep Dive
 Continuous integration, delivery, and deployment are quickly going from nice-to-haves to must-haves in any software development project. GitHub Actions is emerging as a fast-growing CI/CD solution — it's simple to get started, has strong integration with third-party tools and cloud providers, and has a robust, engaged community. This course will examine GitHub Actions’ approach to CI/CD — developing workflows, managing jobs, and securing resources. It will demonstrate how to leverage other GitHub services with Actions. It will go step-by-step through setting up a CI/CD workflow for an AWS Lambda function. Finally, learners will build their own GitHub Actions workflow to deploy a static site to an S3 bucket.
 
+> [GitHub Actions Marketplace](https://github.com/marketplace?type=actions)
+
 <br>
 
+> Demo project:
 > https://github.com/linuxacademy/content-github-actions-deep-dive-lesson
 
 <br>
