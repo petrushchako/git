@@ -8,5 +8,5 @@ jobs:
   build:
     runs-on: self-hoste
     steps:
-        - run: echo "Hello from self-hosted runner!"
+        - run: echo "Hello World"
         - run: echo $HOSTNAME
