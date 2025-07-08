@@ -1,0 +1,6 @@
+jobs:
+  build:
+    runs-on: [self-hosted, ip-10-0-1-130]
+    steps:
+      - name: Run a script
+        run: echo "Hello from self-hosted runner!"
