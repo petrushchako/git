@@ -1,9 +1,12 @@
+name: Custom-Runner Test
+
 on:
-  workflow_dispatch:
+  push:
+    branches: [main]
 
 jobs:
   build:
-    runs-on: [self-hosted, ip-10-0-1-130]
+    runs-on: self-hoste
     steps:
-      - name: Run a script
-        run: echo "Hello from self-hosted runner!"
+        - run: echo "Hello from self-hosted runner!"
+        - run: echo $HOSTNAME
