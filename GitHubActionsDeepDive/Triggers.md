@@ -47,24 +47,24 @@ on:
 You can define inputs for `workflow_dispatch`, which allows users to provide values when triggering the workflow.
 
 #### Example:
-    ```yaml
-    on:
-    workflow_dispatch:
-        inputs:
-        environment:
-            description: "Environment to deploy to"
-            required: true
-            default: "staging"
-            type: choice
-            options:
-            - staging
-            - production
-        debug:
-            description: "Enable debug mode"
-            required: false
-            default: "false"
-            type: boolean
-    ```
+  ```yaml
+  on:
+  workflow_dispatch:
+      inputs:
+      environment:
+          description: "Environment to deploy to"
+          required: true
+          default: "staging"
+          type: choice
+          options:
+          - staging
+          - production
+      debug:
+          description: "Enable debug mode"
+          required: false
+          default: "false"
+          type: boolean
+  ```
 
 #### Triggering via GitHub UI
 1. Go to **Actions** tab in your repository.
@@ -72,17 +72,17 @@ You can define inputs for `workflow_dispatch`, which allows users to provide val
 3. Click **Run workflow** and provide the necessary inputs.
 
 #### Triggering via GitHub CLI
-    ```sh
-    gh workflow run <workflow_name> --ref main --field environment=production --field debug=true
-    ```
+  ```sh
+  gh workflow run <workflow_name> --ref main --field environment=production --field debug=true
+  ```
 
 #### Triggering via GitHub API
-    ```sh
-    curl -X POST -H "Authorization: token YOUR_GITHUB_TOKEN" \
-        -H "Accept: application/vnd.github.v3+json" \
-        https://api.github.com/repos/OWNER/REPO/actions/workflows/WORKFLOW_FILE.yml/dispatches \
-        -d '{"ref":"main","inputs":{"environment":"production","debug":"true"}}'
-```
+  ```sh
+  curl -X POST -H "Authorization: token YOUR_GITHUB_TOKEN" \
+      -H "Accept: application/vnd.github.v3+json" \
+      https://api.github.com/repos/OWNER/REPO/actions/workflows/WORKFLOW_FILE.yml/dispatches \
+      -d '{"ref":"main","inputs":{"environment":"production","debug":"true"}}'
+  ```
 
 
 <br><br><br>
