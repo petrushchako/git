@@ -1,12 +1,13 @@
 name: Custom-Runner Test
 
 on:
-  push:
-    branches: [main]
+#   push:
+#     branches: [main]
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: [self-hosted, Linux, X64]
+    runs-on: [self-hosted, Linux, mbc]
     steps:
         - run: echo "Hello World"
         - run: echo $HOSTNAME
