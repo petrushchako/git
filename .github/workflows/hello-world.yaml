@@ -1,15 +1,21 @@
-name: Run Custom Local Action
+name: Hello GHA World
 
 on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
   workflow_dispatch:
 
 jobs:
-  test-action:
+  hello-world:
     runs-on: ubuntu-latest
     steps:
       # Step 1: Check out your repository code
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # Step 2: Reference your local action path
       - name: Greet user
