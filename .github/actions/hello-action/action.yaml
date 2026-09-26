@@ -9,9 +9,10 @@ inputs:
       default: "World"
 
 runs:
-    uses: "docker"
+    using: "docker"
     image: "Dockerfile"
 
 branding:
     icon: "mic"
     color: "purple"
+
