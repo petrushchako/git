@@ -16,3 +16,6 @@ jobs:
         uses: ./.github/actions/hello-action
         with:
           MY_NAME: "Alex"
+
+      - name: Say hello from container
+        uses: docker://hello-world:latest
