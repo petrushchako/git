@@ -8,9 +8,15 @@ inputs:
       required: true
       default: "World"
 
+# runs:
+#     using: "docker"
+#     image: "Dockerfile"
+
 runs:
-    using: "docker"
-    image: "Dockerfile"
+  using: "composite"
+  steps:
+    - run: echo "Hello ${{ inputs.MY_NAME }}"
+      shell: bash
 
 branding:
     icon: "mic"
